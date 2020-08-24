@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="InstantEat:jar">
+    <output-path>$USER_HOME$/Desktop/D/Default paper/1.15 coding/plugins</output-path>
+    <root id="archive" name="InstantEat.jar">
+      <element id="module-output" name="InstantEat" />
+    </root>
+  </artifact>
+</component>

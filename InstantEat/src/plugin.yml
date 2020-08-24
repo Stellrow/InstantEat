@@ -1,0 +1,6 @@
+name: InstantEat
+author: Stellrow
+version: 1.1
+api-version: 1.13
+main: me.Stellrow.InstantEat.InstantEat
+description: Allows to instantly eat or speed up eating a food
