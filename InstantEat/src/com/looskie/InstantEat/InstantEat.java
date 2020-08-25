@@ -1,4 +1,4 @@
-package me.Stellrow.InstantEat;
+package com.looskie.InstantEat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

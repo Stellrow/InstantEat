@@ -1,4 +1,4 @@
-package me.Stellrow.InstantEat;
+package com.looskie.InstantEat;
 
 import org.bukkit.block.Container;
 import org.bukkit.entity.Player;
@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class InstantEatEvents implements Listener {
@@ -30,24 +31,28 @@ public class InstantEatEvents implements Listener {
             }
             if(pl.foods.containsKey(e.getItem().getType())){
                 e.setCancelled(true);
-
                 eat(e.getPlayer(),e.getItem(),pl.foods.get(e.getItem().getType()));
             }
         }
     }
     private void eat(Player p, ItemStack item, Integer time){
             new BukkitRunnable(){
-
                 @Override
                 public void run() {
                     if(p.getInventory().getItemInMainHand()==null){
                         return;
                     }
                     if(p.getInventory().getItemInMainHand().equals(item)) {
-                        Integer food[] = Foods.valueOf(item.getType().toString()).getValue();
-                        setItem(p, item);
-                        p.setFoodLevel(p.getFoodLevel() + food[0]);
-                        p.setSaturation(p.getSaturation() + food[1]);
+                        if(item.getType().toString() == "MILK_BUCKET") {
+                            for(PotionEffect effect:p.getActivePotionEffects()){
+                                p.removePotionEffect(effect.getType());
+                            }
+                        } else {
+                            Integer food[] = Foods.valueOf(item.getType().toString()).getValue();
+                            setItem(p, item);
+                            p.setFoodLevel(p.getFoodLevel() + food[0]);
+                            p.setSaturation(p.getSaturation() + food[1]);
+                        }
                         item.setAmount(item.getAmount() - 1);
                     }
                 }
@@ -98,7 +103,8 @@ public class InstantEatEvents implements Listener {
         BEETROOT_SOUP(6,7),
         SWEET_BERRIES(2, 1),
         HONEY_BOTTLE(6, 1),
-        MUSHROOM_STEW(6,7);
+        MUSHROOM_STEW(6,7),
+        MILK_BUCKET(0,0);
 
         private Integer[] value;
         private Foods(Integer value,Integer saturation){
